@@ -35,7 +35,7 @@ config.read(args.config_file)
 # [mqtt]
 MQTT_HOST = config.get("mqtt", "host")
 MQTT_PORT = config.getint("mqtt", "port")
-HEARTBEATTOPIC = config.get("mqtt", "heartbeattopic")
+STATUSTOPIC = config.get("mqtt", "statustopic")
 POLLINTERVAL = config.getint("mqtt", "pollinterval")
 # [Onewire]
 OW_HOST = config.get("onewire", "host")
@@ -88,7 +88,7 @@ def on_mqtt_connect(mosq, obj, return_code):
     if return_code == 0:
         logging.info("Connected to %s:%s", MQTT_HOST, MQTT_PORT)
         # set Lastwill 
-        MQTTC.publish(HEARTBEATTOPIC, "1 - connected", retain=True)
+        MQTTC.publish(STATUSTOPIC, "1 - connected", retain=True)
         # process_connection()
     elif return_code == 1:
         logging.info("Connection refused - unacceptable protocol version")
@@ -131,7 +131,7 @@ def on_mqtt_log(mosq, obj, level, string):
 def cleanup(signum, frame):
     logging.info("Disconnecting from broker")
     # Publish a retained message to state that this client is offline
-    MQTTC.publish(HEARTBEATTOPIC, "0 - DISCONNECT", retain=True)
+    MQTTC.publish(STATUSTOPIC, "0 - DISCONNECT", retain=True)
     MQTTC.disconnect()
     MQTTC.loop_stop()
     logging.info("Exiting on signal %d", signum)
@@ -142,7 +142,7 @@ def cleanup(signum, frame):
 def mqtt_connect():    
     logging.debug("Connecting to %s:%s", MQTT_HOST, MQTT_PORT)
     # Set the last will before connecting
-    MQTTC.will_set(HEARTBEATTOPIC, "0 - LASTWILL", qos=0, retain=True)
+    MQTTC.will_set(STATUSTOPIC, "0 - LASTWILL", qos=0, retain=True)
     result = MQTTC.connect(MQTT_HOST, MQTT_PORT, 60, True)
     if result != 0:
         logging.info("Connection failed with error code %s. Retrying", result)
@@ -163,7 +163,7 @@ def main_loop():
     logging.debug(("MQTT broker    : %s") % (MQTT_HOST))
     logging.debug(("  port         : %s") % (str(MQTT_PORT)))
     logging.debug(("pollinterval   : %s") % (str(POLLINTERVAL)))
-    logging.debug(("heartbeattopic : %s") % (str(HEARTBEATTOPIC)))
+    logging.debug(("statustopic    : %s") % (str(STATUSTOPIC)))
     logging.debug(("sensors        : %s") % (len(SENSORS)))
     for owid, owtopic in SENSORS.items():
         logging.debug(("  %s : %s") % (owid, owtopic))
@@ -205,4 +205,3 @@ try:
 except KeyboardInterrupt:
     logging.info("Interrupted by keypress")
     sys.exit(0)
-    
