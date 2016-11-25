@@ -15,8 +15,7 @@ host= ::1
 port = 4304      
 
 [log]
-#verbose = false
-verbose = true
+verbose = false
 logfile = /var/log/onewire-to-mqtt.log
 
 # list of sensors to be polled and according mqtt topics 
