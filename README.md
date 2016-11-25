@@ -1,9 +1,7 @@
 # onewire-to-mqtt.py
 
-publish onewire temperature sensor values to MQTT.
-
-onewire-to-mqtt.py is intended to run as a service. It connects to [owserver](http://owfs.org/index.php?page=owserver) (from [owfs](http://owfs.org) and reads the temperature values from **DS18x20** onewire sensors.
-The temperatures which have been aquired using iwserver will be published using a mqtt-broker.
+Onewire-to-mqtt.py is intended to run as a service,it connects to [owserver](http://owfs.org/index.php?page=owserver) (from [owfs](http://owfs.org) and reads the temperature values from **DS18x20** onewire sensors.
+The temperatures which have been aquired using owserver will be published using a mqtt-broker.
 
 A running [owserver](http://owfs.org/index.php?page=owserver) and a mqtt-broker (e.g: [mosquitto](https://mosquitto.org)) are required to use this deamon.
 
