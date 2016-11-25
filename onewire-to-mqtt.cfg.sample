@@ -1,3 +1,5 @@
+# sample configuration 
+ 
 # MQTT broker  related config
 [mqtt]
 host = 127.0.0.1
@@ -15,8 +17,7 @@ host= ::1
 port = 4304      
 
 [log]
-#verbose = false
-verbose = true
+verbose = false
 logfile = /var/log/onewire-to-mqtt.log
 
 # list of sensors to be polled and according mqtt topics 
@@ -35,5 +36,4 @@ logfile = /var/log/onewire-to-mqtt.log
 28.030000000000 = home/floor3/room6 
 10.040000000000 = home/floor3/room7  
 10.050000000000 = home/floor3/room8 
-10.060000000000 = home/floor3/room9
-                  
+10.060000000000 = home/floor3/room9 
