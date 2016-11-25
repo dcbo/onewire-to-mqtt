@@ -1,3 +1,5 @@
+# sample configuration 
+ 
 # MQTT broker  related config
 [mqtt]
 host = 127.0.0.1
