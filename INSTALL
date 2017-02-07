@@ -1,15 +1,14 @@
-#Install
+Install
 
-##1) Copy files to working Directory
+1) Copy files to working Directory
 - copy script to favourite location e.g.:
   /usr/local/onewire-to-mqtt/onewire-to-mqtt.py 
-
 - copy config file to favourite location e.g.: 
   /usr/local/onewire-to-mqtt/onewire-to-mqtt.cfg  
 
-##2) Edit Config File
+2) Edit Config File
 
-##3) Create A Unit File
+3) Create A Unit File
 vi /lib/systemd/system/onewire-to-mqtt.service
 
 paste the following:
@@ -26,14 +25,14 @@ ExecStart=/usr/bin/python /usr/local/onewire-to-mqtt/onewire-to-mqtt.py /usr/loc
 WantedBy=multi-user.target
 -----------------------------------------------
 
-##4) Set Rightes on Unit File
+4) Set Rightes on Unit File
 chmod 644 /lib/systemd/system/onewire-to-mqtt.service
 
-##5) Configure systemd
+5) Configure systemd
 systemctl daemon-reload
 systemctl enable onewire-to-mqtt.service
 
-##6) Reboot 
+6) Reboot 
 
-##7) Check status of onewire-to-mqtt service:
+7) Check status of onewire-to-mqtt service:
 systemctl status onewire-to-mqtt.service
